@@ -27,3 +27,375 @@
                 <!-- Avatar-Bereich -->
                 <div id="avatar-container" class="flex flex-col items-center text-center smooth-transition shrink-0 w-full">
                     <div class="relative">
+                        <div id="avatar-pic" class="w-24 h-24 rounded-full bg-gray-600 overflow-hidden flex items-center justify-center"></div>
+                        <span id="profile-level" class="absolute bottom-0 right-0 bg-yellow-500 text-gray-900 text-[10px] font-bold px-1.5 py-0.5 rounded-full">Lv. 3</span>
+                    </div>
+                    <h2 id="profile-name" class="text-base font-bold mt-2 break-words max-w-[120px]">Name</h2>
+                    <p id="profile-badge" class="text-[10px] px-2 rounded-full mt-1">Status</p>
+                </div>
+
+                <!-- Knopf-Einheit -->
+                <div id="appointments-container" class="hidden w-full bg-gray-700/30 p-3 rounded-xl border border-gray-600 space-y-3 opacity-0 smooth-transition text-left">
+                    
+                    <!-- Sektion für Termine oder System-Meldungen -->
+                    <div id="info-section" class="hidden space-y-2">
+                        <h3 id="info-title" class="text-[10px] font-bold uppercase tracking-wider">Meldungen</h3>
+                        <div id="info-list" class="space-y-1.5"></div>
+                    </div>
+
+                    <!-- GEBÜNDELTE KNOPF-EINHEIT -->
+                    <div class="bg-gray-900/40 border border-gray-600/40 rounded-xl p-3 space-y-2.5">
+                        <h3 id="dashboard-unit-title" class="text-[10px] font-bold uppercase tracking-wider text-yellow-500 px-1 border-b border-gray-700/50 pb-1.5">Dashboard Optionen</h3>
+                        
+                        <!-- AUTOMATISCHE BERUFSGENOSSENSCHAFT -->
+                        <div id="wrapper-bg-automation" class="hidden bg-slate-900/60 border border-blue-500/30 p-2.5 rounded-lg text-[11px]">
+                            <span class="text-[9px] uppercase font-bold tracking-wider text-blue-400 block mb-1">🛡️ Gesetzlicher Unfallschutz (Automatisch ermittelt)</span>
+                            <div id="bg-info-content" class="text-gray-300 font-medium flex items-center gap-1.5"></div>
+                        </div>
+
+                        <!-- MAPS NAVIGATIONSHINWEIS -->
+                        <div id="wrapper-maps-navigation" class="hidden bg-slate-900/60 border border-emerald-500/30 p-2.5 rounded-lg text-[11px]">
+                            <span class="text-[9px] uppercase font-bold tracking-wider text-emerald-400 block mb-1">📍 Aktiver Einsatzort (Google Maps)</span>
+                            <div class="flex justify-between items-center gap-2 mt-1">
+                                <span id="current-location-text" class="text-gray-300 truncate font-semibold">Kein Ort hinterlegt</span>
+                                <button onclick="startNavigation()" class="px-2 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded font-bold text-[10px] shrink-0 flex items-center gap-1">
+                                    🚀 Navi starten
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- ================= NUTZER-KNÖPFE ================= -->
+                        <div id="wrapper-user-bounty" class="hidden">
+                            <button id="btn-user-bounty" onclick="triggerAnimation('btn-user-bounty', 'text-user-bounty', '2 Aktive Bountys', '#')" class="expand-btn bg-gradient-to-r from-blue-600 to-indigo-600 text-white h-11 rounded-lg font-black text-xs shadow-sm border border-blue-400/20 flex items-center justify-center gap-1.5 px-3">
+                                <span>🎯</span> <span id="text-user-bounty">2 Aktive Bountys</span>
+                            </button>
+                        </div>
+                        <div id="wrapper-user-ausbildung" class="hidden">
+                            <button id="btn-user-ausbildung" onclick="triggerAnimation('btn-user-ausbildung', 'text-user-ausbildung', '3 Ausbildungs-Angebote', '#')" class="expand-btn bg-gray-800 hover:bg-gray-750 text-amber-400 h-10 rounded-lg font-bold text-[11px] shadow-sm border border-amber-500/20 flex items-center justify-center gap-1.5 px-3">
+                                <span>🎓</span> <span id="text-user-ausbildung">3 Ausbildungs-Angebote</span>
+                            </button>
+                        </div>
+                        <div id="wrapper-user-job" class="hidden">
+                            <button id="btn-user-job" onclick="triggerAnimation('btn-user-job', 'text-user-job', '1 Festanstellung offen', '#')" class="expand-btn bg-gray-800 hover:bg-gray-750 text-emerald-400 h-10 rounded-lg font-bold text-[11px] shadow-sm border border-emerald-500/20 flex items-center justify-center gap-1.5 px-3">
+                                <span>💼</span> <span id="text-user-job">1 Festanstellung offen</span>
+                            </button>
+                        </div>
+
+                        <!-- ================= FIRMEN-KNÖPFE ================= -->
+                        <div id="wrapper-company-post" class="hidden">
+                            <button id="btn-company-post" onclick="openBountyModal()" class="expand-btn bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white h-11 rounded-lg font-black text-xs shadow-sm border border-fuchsia-400/20 flex items-center justify-center gap-1.5 px-3">
+                                <span>⚡</span> <span>⚡ Schnell-Bounty posten</span>
+                            </button>
+                        </div>
+                        <div id="wrapper-company-ausbildung" class="hidden">
+                            <button id="btn-company-ausbildung" class="expand-btn bg-gray-800 text-amber-400 h-10 rounded-lg font-bold text-[11px] shadow-sm border border-amber-500/20 flex items-center justify-center gap-1.5 px-3">
+                                <span>📝</span> <span id="text-company-ausbildung">4 Offene Bewerbungen</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Unterer Bereich: Zeugnisse / Nachweise -->
+            <div id="filter-section-container" class="hidden pt-4 smooth-transition">
+                <h4 id="filter-section-title" class="text-[11px] font-bold uppercase tracking-wider text-gray-400 mb-3 tracking-wide">Hinterlegte Nachweise (Input)</h4>
+                
+                <!-- Checkboxen für den Nutzer -->
+                <div id="user-docs-container" class="hidden grid grid-cols-1 gap-2.5 text-xs">
+                    <label class="flex items-center gap-3 bg-gray-900/50 p-3 rounded-xl border border-gray-700/60 hover:bg-gray-700/20 transition cursor-pointer"><input type="checkbox" checked class="w-4 h-4 rounded accent-blue-500"> 📄 Geburtsurkunde</label>
+                    <label class="flex items-center gap-3 bg-gray-900/50 p-3 rounded-xl border border-gray-700/60 hover:bg-gray-700/20 transition cursor-pointer"><input type="checkbox" checked class="w-4 h-4 rounded accent-blue-500"> 🚗 Führerschein (Klasse B)</label>
+                    <label class="flex items-center gap-3 bg-gray-900/50 p-3 rounded-xl border border-gray-700/60 hover:bg-gray-700/20 transition cursor-pointer"><input type="checkbox" class="w-4 h-4 rounded accent-blue-500"> 🎓 Schulabschlusszeugnis</label>
+                    <label class="flex items-center gap-3 bg-gray-900/50 p-3 rounded-xl border border-gray-700/60 hover:bg-gray-700/20 transition cursor-pointer"><input type="checkbox" class="w-4 h-4 rounded accent-blue-500"> 🩺 Gesundheitspass</label>
+                </div>
+
+                <!-- Voreinstellungen für die Firma -->
+                <div id="company-requirements-container" class="hidden grid grid-cols-1 gap-2.5 text-xs">
+                    <p class="text-[10px] text-purple-400 -mt-1 mb-1">Gewählte Filter für automatische Matches:</p>
+                    <label class="flex items-center gap-3 bg-gray-900/50 p-3 rounded-xl border border-gray-700/60 hover:bg-gray-700/20 transition cursor-pointer"><input type="checkbox" id="req-abschluss" checked class="w-4 h-4 rounded accent-purple-500"> Erfordert Schulabschluss</label>
+                    <label class="flex items-center gap-3 bg-gray-900/50 p-3 rounded-xl border border-gray-700/60 hover:bg-gray-700/20 transition cursor-pointer"><input type="checkbox" id="req-gesundheit" class="w-4 h-4 rounded accent-purple-500"> Erfordert Gesundheitspass</label>
+                    <div class="bg-gray-900/50 p-3 rounded-xl border border-gray-700/60 space-y-1">
+                        <span class="text-[10px] block text-gray-400">Tätigkeitsbereich & Belastung:</span>
+                        <select id="bounty-weight" onchange="autoUpdateBG()" class="bg-gray-800 text-white text-xs rounded p-2 w-full border border-gray-600">
+                            <option value="gastronomy">🍔 Service & Gastro (Karte: GRÜN - Bis 10 kg)</option>
+                            <option value="logistics">📦 Lager & Logistik (Karte: ORANGE - Bis 25 kg)</option>
+                            <option value="construction">🏗️ Event- & Messebau (Karte: ROT - Über 25 kg)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- SYSTEM-MODAL FÜR SCHNELL-BOUNTY (FIRMA) -->
+        <div id="bounty-modal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+            <div class="bg-gray-800 border-2 border-purple-500 p-5 rounded-2xl max-w-sm w-full space-y-4">
+                <div class="flex justify-between items-center border-b border-gray-700 pb-2">
+                    <h3 class="text-sm font-black text-purple-400">⚡ Schnell-Bounty erstellen</h3>
+                    <button onclick="closeBountyModal()" class="text-gray-400 hover:text-white font-bold text-sm">✕</button>
+                </div>
+                <div class="bg-blue-950/60 p-2.5 rounded border border-blue-700 text-[10px] text-blue-300">
+                    ℹ️ <strong>Auto-BG & Maps aktiv:</strong> Der hier eingetragene Ort wird direkt für die Live-Navigation verknüpft.
+                </div>
+                <div class="space-y-3 text-xs">
+                    <div>
+                        <label class="block text-gray-400 mb-1">Einsatzort:</label>
+                        <input type="text" id="modal-location" value="Mainz Hauptbahnhof" class="w-full bg-gray-700 border border-gray-600 rounded p-2 text-white">
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="block text-gray-400 mb-1">Startzeit:</label>
+                            <input type="time" id="modal-time" value="08:00" class="w-full bg-gray-700 border border-gray-600 rounded p-2 text-white">
+                        </div>
+                        <div>
+                            <label class="block text-gray-400 mb-1">Benötigte Personen:</label>
+                            <input type="number" id="modal-people" value="3" min="1" class="w-full bg-gray-700 border border-gray-600 rounded p-2 text-white">
+                        </div>
+                    </div>
+                </div>
+                <button onclick="submitBounty()" class="w-full h-11 bg-purple-600 hover:bg-purple-700 font-bold rounded-xl text-xs shadow-lg transition">
+                    Bounty auf Live-Map posten
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        let currentRole = 'user';
+        
+        let appData = {
+            currentLocation: "Mainz Hauptbahnhof", 
+            user: {
+                arztTermine: [{ title: '🩺 Facharzt (Krankenkasse)', text: 'Morgen, 10:00 Uhr', color: 'border-red-500' }],
+                bountys: 2,
+                ausbildungen: 3,
+                jobs: 1,
+                activeBountyCategory: 'gastronomy'
+            },
+            company: {
+                notizen: [{ title: '🏢 System', text: 'Gewerbeamt Mainz verifiziert.', color: 'border-purple-500' }],
+                bewerbungenAzubi: 4
+            }
+        };
+
+        const bgDatabase = {
+            gastronomy: "<strong>BGN</strong> (Berufsgenossenschaft Nahrungsmittel und Gastgewerbe)",
+            logistics: "<strong>BG Verkehr</strong> (Post-Logistik, Transport und Personenbeförderung)",
+            construction: "<strong>BG BAU</strong> (Berufsgenossenschaft der Bauwirtschaft)"
+        };
+
+        const upperLayout = document.getElementById('profile-upper-layout');
+        const appointmentsContainer = document.getElementById('appointments-container');
+        const filterSectionContainer = document.getElementById('filter-section-container');
+        const profileName = document.getElementById('profile-name');
+        const profileBadge = document.getElementById('profile-badge');
+        const avatarContainer = document.getElementById('avatar-container');
+        const avatarPic = document.getElementById('avatar-pic');
+        const profileLevel = document.getElementById('profile-level');
+        const infoSection = document.getElementById('info-section');
+        const infoList = document.getElementById('info-list');
+        const infoTitle = document.getElementById('info-title');
+        
+        const userDocs = document.getElementById('user-docs-container');
+        const companyReqs = document.getElementById('company-requirements-container');
+        const filterTitle = document.getElementById('filter-section-title');
+        const unitTitle = document.getElementById('dashboard-unit-title');
+        const bgAutomationBox = document.getElementById('wrapper-bg-automation');
+        const bgInfoContent = document.getElementById('bg-info-content');
+        
+        const mapsNavigationBox = document.getElementById('wrapper-maps-navigation');
+        const currentLocationText = document.getElementById('current-location-text');
+
+        function startNavigation() {
+            if (appData.currentLocation) {
+                const encodedLocation = encodeURIComponent(appData.currentLocation);
+                const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodedLocation}`;
+                window.open(mapsUrl, '_blank');
+            }
+        }
+
+        function autoUpdateBG() {
+            let activeCategory = 'gastronomy';
+            
+            if (currentRole === 'user') {
+                activeCategory = appData.user.activeBountyCategory;
+            } else {
+                activeCategory = document.getElementById('bounty-weight').value;
+            }
+
+            if (bgDatabase[activeCategory] && appData.currentLocation) {
+                bgAutomationBox.classList.remove('hidden');
+                bgInfoContent.innerHTML = `🏢 ${bgDatabase[activeCategory]}`;
+                mapsNavigationBox.classList.remove('hidden');
+                currentLocationText.innerText = appData.currentLocation;
+            } else {
+                bgAutomationBox.classList.add('hidden');
+                mapsNavigationBox.classList.add('hidden');
+            }
+        }
+
+        function setProfile(role) {
+            currentRole = role;
+            document.getElementById('btn-user').className = role === 'user' ? 'px-3 py-1 bg-blue-600 rounded font-bold text-xs' : 'px-3 py-1 bg-gray-700 rounded text-gray-400 text-xs';
+            document.getElementById('btn-company').className = role === 'company' ? 'px-3 py-1 bg-purple-600 rounded font-bold text-xs' : 'px-3 py-1 bg-gray-700 rounded text-gray-400 text-xs';
+
+            const wrappers = ['wrapper-user-bounty', 'wrapper-user-ausbildung', 'wrapper-user-job', 'wrapper-company-post', 'wrapper-company-ausbildung'];
+            wrappers.forEach(w => document.getElementById(w).classList.add('hidden'));
+
+            if (role === 'user') {
+                document.getElementById('registration-info').innerHTML = `<p>🔐 Registriert via <strong>Personalausweis</strong> & <strong>Krankenkasse</strong>.</p>`;
+                profileName.innerText = "Max Mustermann";
+                profileBadge.innerText = "Verifizierter Nutzer";
+                profileBadge.className = "text-[10px] bg-blue-900 text-blue-300 px-2 rounded-full mt-1";
+                unitTitle.innerText = "Optionen für Nutzer";
+                unitTitle.className = "text-[10px] font-bold uppercase tracking-wider text-blue-400 px-1 border-b border-gray-700/50 pb-1.5";
+                
+                avatarPic.className = "w-24 h-24 rounded-full bg-gray-600 overflow-hidden avatar-tier-3 flex items-center justify-center";
+                avatarPic.innerHTML = `<span class="text-xs text-center p-2 text-gray-300 font-semibold">Perso-Bild</span>`;
+                profileLevel.classList.remove('hidden');
+                
+                userDocs.classList.remove('hidden');
+                companyReqs.classList.add('hidden');
+                filterTitle.innerText = "Hinterlegte Nachweise (Input)";
+
+                renderUserDashboard();
+            } else {
+                document.getElementById('registration-info').innerHTML = `<p>🏢 Registriert via <strong>Firmen-Steuer-ID</strong> & Handelsregister.</p>`;
+                profileName.innerText = "TechCorp GmbH";
+                profileBadge.innerText = "Geprüfter Arbeitgeber";
+                profileBadge.className = "text-[10px] bg-purple-900 text-purple-300 px-2 rounded-full mt-1";
+                unitTitle.innerText = "Optionen für Firmen";
+                unitTitle.className = "text-[10px] font-bold uppercase tracking-wider text-purple-400 px-1 border-b border-gray-700/50 pb-1.5";
+                
+                avatarPic.className = "w-16 h-16 rounded-xl bg-gray-700 overflow-hidden border border-gray-600 flex items-center justify-center";
+                avatarPic.innerHTML = `<span class="text-[10px] text-center text-gray-400 font-medium">Logo</span>`;
+                profileLevel.classList.add('hidden');
+                
+                userDocs.classList.add('hidden');
+                companyReqs.classList.remove('hidden');
+                filterTitle.innerText = "Bounty-Filter Voreinstellungen";
+
+                renderCompanyDashboard();
+            }
+            autoUpdateBG();
+        }
+
+        function renderUserDashboard() {
+            infoList.innerHTML = '';
+            const data = appData.user;
+
+            if (data.arztTermine.length > 0) {
+                infoSection.classList.remove('hidden');
+                infoTitle.innerText = "Wichtige Termine";
+                infoTitle.className = "text-[10px] font-bold uppercase tracking-wider text-red-400";
+                data.arztTermine.forEach(t => {
+                    infoList.innerHTML += `<div class="p-2 bg-gray-800 rounded-lg border-l-4 ${t.color} text-[11px] text-left"><p class="font-semibold">${t.title}</p><p class="text-gray-400">${t.text}</p></div>`;
+                });
+            } else { infoSection.classList.add('hidden'); }
+
+            if(data.bountys > 0) document.getElementById('wrapper-user-bounty').classList.remove('hidden');
+            if(data.ausbildungen > 0) document.getElementById('wrapper-user-ausbildung').classList.remove('hidden');
+            if(data.jobs > 0) document.getElementById('wrapper-user-job').classList.remove('hidden');
+
+            const total = data.arztTermine.length + data.bountys + data.ausbildungen + data.jobs;
+            updateUILayout(total > 0);
+        }
+
+        function renderCompanyDashboard() {
+            infoList.innerHTML = '';
+            const data = appData.company;
+
+            if (data.notizen.length > 0) {
+                infoSection.classList.remove('hidden');
+                infoTitle.innerText = "System-Meldungen";
+                infoTitle.className = "text-[10px] font-bold uppercase tracking-wider text-purple-400";
+                data.notizen.forEach(n => {
+                    infoList.innerHTML += `<div class="p-2 bg-gray-800 rounded-lg border-l-4 ${n.color} text-[11px] text-left"><p class="font-semibold">${n.title}</p><p class="text-gray-400">${n.text}</p></div>`;
+                });
+            } else { infoSection.classList.add('hidden'); }
+
+            document.getElementById('wrapper-company-post').classList.remove('hidden');
+            if(data.bewerbungenAzubi > 0) document.getElementById('wrapper-company-ausbildung').classList.remove('hidden');
+
+            updateUILayout(true);
+        }
+
+        function updateUILayout(hasData) {
+            if (hasData) {
+                upperLayout.className = "flex flex-row items-center justify-between gap-6 smooth-transition pb-4 border-b border-gray-700/50";
+                avatarContainer.className = "flex flex-col items-center text-center smooth-transition shrink-0 w-[30%]";
+                appointmentsContainer.className = "w-[70%] bg-gray-700/30 p-3 rounded-xl border border-gray-600 space-y-3 opacity-100 smooth-transition block text-left";
+                filterSectionContainer.classList.remove('hidden');
+            } else {
+                upperLayout.className = "flex flex-col items-center justify-center gap-6 smooth-transition pb-0 border-b-0";
+                avatarContainer.className = "flex flex-col items-center text-center smooth-transition shrink-0 w-full";
+                appointmentsContainer.className = "hidden w-full opacity-0 smooth-transition";
+                filterSectionContainer.classList.add('hidden');
+                bgAutomationBox.classList.add('hidden');
+                mapsNavigationBox.classList.add('hidden');
+            }
+        }
+
+        function openBountyModal() {
+            document.getElementById('bounty-modal').classList.remove('hidden');
+        }
+
+        function closeBountyModal() {
+            document.getElementById('bounty-modal').classList.add('hidden');
+        }
+
+        function submitBounty() {
+            const loc = document.getElementById('modal-location').value;
+            const time = document.getElementById('modal-time').value;
+            const people = document.getElementById('modal-people').value;
+            const currentSelection = document.getElementById('bounty-weight').value;
+            
+            appData.currentLocation = loc;
+            const assignedBG = bgDatabase[currentSelection].replace(/<\/?[^>]+(>|$)/g, ""); 
+
+            alert(`⚡ Live-Bounty erfolgreich erstellt!\n\n📍 Ort: ${loc}\n⏰ Start: ${time} Uhr\n👥 Personen: ${people}\n\n🛡️ Automatisch verknüpfter Unfallschutz:\n${assignedBG}\n\n📍 Standort für Navigation für beide Profile freigeschaltet!`);
+            
+            closeBountyModal();
+            autoUpdateBG(); 
+        }
+
+        function triggerAnimation(btnId, textId, normalText, targetUrl) {
+            const btn = document.getElementById(btnId);
+            const txt = document.getElementById(textId);
+            btn.classList.add('bg-green-600', 'text-white');
+            txt.innerText = "Öffne...";
+            setTimeout(() => {
+                alert(normalText + " geöffnet!");
+                btn.classList.remove('bg-green-600', 'text-white');
+                txt.innerText = normalText;
+            }, 600);
+        }
+
+        function simulateEmpty() {
+            appData.currentLocation = ""; 
+            if(currentRole === 'user') {
+                appData.user = { arztTermine: [], bountys: 0, ausbildungen: 0, jobs: 0, activeBountyCategory: '' };
+                renderUserDashboard();
+            } else {
+                appData.company = { notizen: [], bewerbungenAzubi: 0 };
+                renderCompanyDashboard();
+            }
+            autoUpdateBG();
+        }
+
+        function simulateActive() {
+            appData.currentLocation = "Mainz Hauptbahnhof"; 
+            if(currentRole === 'user') {
+                appData.user = { arztTermine: [{ title: '🩺 Facharzt (Krankenkasse)', text: 'Morgen, 10:00 Uhr', color: 'border-red-500' }], bountys: 2, ausbildungen: 3, jobs: 1, activeBountyCategory: 'gastronomy' };
+                renderUserDashboard();
+            } else {
+                appData.company = { notizen: [{ title: '🏢 System', text: 'Gewerbeamt Mainz verifiziert.', color: 'border-purple-500' }], bewerbungenAzubi: 4 };
+                renderCompanyDashboard();
+            }
+            autoUpdateBG();
+        }
+
+        setProfile('user');
+    </script>
+</body>
+</html>
