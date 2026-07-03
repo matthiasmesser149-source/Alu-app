@@ -1,43 +1,29 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ALU - Map</title>
-    <style>
-        html, body, #map { margin: 0; padding: 0; width: 100%; height: 100%; font-family: Arial, sans-serif; }
-        .profile-container { padding: 20px; background: #ffffff; max-width: 400px; }
-        .profile-header { display: flex; align-items: center; margin-bottom: 20px; }
-        .avatar-wrapper { position: relative; width: 80px; height: 80px; margin-right: 20px; }
-        .profile-avatar { width: 100%; height: 100%; border-radius: 4px; background: #ccc; }
-        .avatar-wrapper.level-4 .diablo-frame { position: absolute; top: -5px; left: -5px; right: -5px; bottom: -5px; border: 3px solid #ffaa00; box-shadow: 0 0 15px rgba(255, 170, 0, 0.6); }
-        .badge { display: inline-block; padding: 3px 8px; border-radius: 4px; font-weight: bold; font-size: 12px; }
-        .badge.gelb { background: #feebc8; color: #744210; }
+        }
     </style>
 </head>
-<body>
-    <div id="map"></div>
-    <script src="https://maps.googleapis.com/maps/api/js?key=DEIN_GOOGLE_MAPS_API_KEY&callback=initMap" async defer></script>
-    <script>
-        function initMap() {
-            const startLocation = { lat: 50.1109, lng: 8.6821 };
-            const map = new google.maps.Map(document.getElementById("map"), { zoom: 13, center: startLocation, disableDefaultUI: true });
-            ladeLivePinsAufKarte(map);
-        }
-        async function ladeLivePinsAufKarte(map) {
-            try {
-                const response = await fetch('/api/bounties/aktive-pins');
-                const livePins = await response.json();
-                livePins.forEach(pinData => {
-                    const marker = new google.maps.Marker({
-                        position: { lat: pinData.coordinates.lat, lng: pinData.coordinates.lng },
-                        map: map,
-                        icon: { path: google.maps.SymbolPath.CIRCLE, scale: 10, fillColor: "#ffcc00", fillOpacity: 1, strokeWeight: 2, strokeColor: "#ffffff" }
-                    });
-                });
-            } catch (e) { console.error(e); }
-        }
-    </script>
-</body>
-</html>
+<body class="bg-gray-900 text-gray-100 font-sans min-h-screen p-4">
 
+    <div class="max-w-4xl mx-auto space-y-6">
+        
+        <!-- STEUERUNG -->
+        <div class="bg-gray-800 p-4 rounded-xl border border-gray-700 flex flex-wrap gap-3 justify-between items-center text-sm text-gray-300">
+            <div class="flex gap-2">
+                <button onclick="setProfile('user')" id="btn-user" class="px-3 py-1 bg-blue-600 rounded font-bold text-xs">Rolle: Normaler Nutzer</button>
+                <button onclick="setProfile('company')" id="btn-company" class="px-3 py-1 bg-gray-700 rounded text-gray-400 text-xs">Rolle: Firma</button>
+            </div>
+            <div class="flex gap-2">
+                <button onclick="simulateEmpty()" class="px-3 py-1 bg-red-900/60 hover:bg-red-900 border border-red-700 rounded text-xs font-semibold">❌ Daten leer</button>
+                <button onclick="simulateActive()" class="px-3 py-1 bg-green-900/60 hover:bg-green-900 border border-green-700 rounded text-xs font-semibold">🔄 Daten laden</button>
+            </div>
+        </div>
+
+        <div id="registration-info" class="bg-gray-800 p-3 rounded-xl border-l-4 border-blue-500 text-xs"></div>
+
+        <!-- PROFIL-SEGMENT -->
+        <div class="bg-gray-800 p-5 rounded-2xl border border-gray-700 min-h-[300px]">
+            <!-- Oberer Bereich: Layout ändert sich dynamisch -->
+            <div id="profile-upper-layout" class="flex flex-col items-center justify-center gap-6 smooth-transition pb-0 border-b-0">
+                
+                <!-- Avatar-Bereich -->
+                <div id="avatar-container" class="flex flex-col items-center text-center smooth-transition shrink-0 w-full">
+                    <div class="relative">
