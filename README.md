@@ -5,12 +5,11 @@ Ein innovatives Vermittlungssystem für Aushilfen, Azubis und Gesellen, basieren
 ## ✨ Kern-Features
 
 *   **Live-Bounty-Board:** Jobs werden als farbige Live-Pins direkt auf der Google-Karte dargestellt (Gelb = Aushilfe, Grün = Azubi, Blau = Geselle).
-*   **Diablo-III-Avatarsystem:** Nutzer leveln ihr Profil durch abgeschlossene Jobs auf. Höhere Level schalten epische visuelle Upgrades für den Avatar-Rahmen frei (bis hin zum legendären Level-4-Funkenflug).
-*   **B2B-Behördensperre:** Integrierter Sicherheitsfilter im Backend, der kritische Infrastrukturen (wie Polizei oder Feuerwehr) vor unbefugtem Zugriff schützt.
+*   **-Avatarsystem:** Nutzer leveln ihr Profil durch abgeschlossene Jobs auf. Höhere Level schalten epische visuelle Upgrades für den Avatar-Rahmen frei 
 
 ## 📁 Projektstruktur
 
-*   `/frontend`: Enthält die Benutzeroberfläche (`index.html`) inklusive Google Maps API-Anbindung und den Diablo-Rahmen-Styles.
+*   `/frontend`: Enthält die Benutzeroberfläche (`index.html`) inklusive Google Maps API-Anbindung und den -Rahmen-Styles.
 *   `/backend`: Enthält den Express-Server (`server.js`) für die Live-Pin-Verteilung und den B2B-Schutzfilter.
 
 ## 🚀 Für Entwickler
