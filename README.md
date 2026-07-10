@@ -10,3 +10,5 @@ ALU ist die zentrale Plattform die lokale Unternehmen und Privatpersonen effizie
 ​Einfach & Intuitiv: Nutze die „Map“, um den Arbeitsmarkt direkt vor deiner Haustür zu erkunden.
 ​Flexibel: Ob Kurzpraktika zum Kennenlernen eines Berufsfeldes oder Bounties für schnelle Hilfe – ALU bietet Flexibilität für beide Seiten.
 ​Transparent: Ein klares System für Firmen und Privatpersonen sorgt dafür, dass die Plattform übersichtlich und zweckmäßig bleibt
+
+codepen:https://codepen.io/Alu149/pen/RNKxpxQ
